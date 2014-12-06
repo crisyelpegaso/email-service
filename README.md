@@ -3,6 +3,7 @@
 ==========================
 
 This code was extracted from a big web application, and the idea is to encapsulate all functionality about sending emails, creating PDF attachments, and configure how to send emails in one separate jar.
+It uses Apache Velocity to create the content of emails, Java 1.7 and Spring for dependency injection.
 
 ********************
 How does it work?
