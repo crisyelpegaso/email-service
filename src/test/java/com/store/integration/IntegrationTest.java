@@ -1,25 +1,25 @@
 package com.store.integration;
 
+import java.util.List;
 import java.util.Locale;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.google.common.collect.Lists;
+import com.store.base.BaseTest;
+import com.store.builder.PDFBuilder;
 import com.store.domain.EmailWrapper;
+import com.store.domain.PDF;
 import com.store.domain.TemplateData;
 import com.store.services.EmailService;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-        "classpath:applicationContext.xml"
-})
-public class IntegrationTest {
+public class IntegrationTest extends BaseTest {
 
     @Autowired
     EmailService emailService;
@@ -28,18 +28,25 @@ public class IntegrationTest {
     MessageSource messageSource;
     
     @Autowired
-    private ApplicationContext appContext;
-
+    PDFBuilder pdfBuilder;
+    
+    @Value("${test.to}")
+    private String to;
+    
+    @Value("${test.subject}")
+    private String subject;
+    
+    @Value("${test.templatename}")
+    private String templatename;
+    
     @Test
     public void testSendEmailEnglish(){
         Locale locale = new Locale("en");
         TemplateData templateData = new TemplateData(messageSource, locale);
-        templateData.add("username", "cris");
-        templateData.add("urlInfo", "http://github.com");
+        templateData.add("username", USERNAME);
+        templateData.add("urlInfo", URL_REPO);
         
-        EmailWrapper email = new EmailWrapper("rodriguezmacristina@gmail.com", "test ", "test_template", templateData);
-        
-        
+        EmailWrapper email = new EmailWrapper(to, subject, templatename, templateData);
         emailService.sendSimpleEmail(email, locale);
     }
     
@@ -47,11 +54,36 @@ public class IntegrationTest {
     public void testSendEmailSpanish(){
         Locale locale = new Locale("es");
         TemplateData templateData = new TemplateData(messageSource, locale);
-        templateData.add("username", "cris");
+        templateData.add("username", USERNAME);
+        templateData.add("urlInfo", URL_REPO);
         
-        EmailWrapper email = new EmailWrapper("rodriguezmacristina@gmail.com", "test ", "test_template", templateData);
-        
-        
+        EmailWrapper email = new EmailWrapper(to, subject, templatename, templateData);
         emailService.sendSimpleEmail(email, locale);
     }
+    
+    @Test
+    public void testSendEmailSpanishWithAttachment(){
+        Locale locale = new Locale("es");
+        TemplateData templateData = new TemplateData(messageSource, locale);
+        templateData.add("username", USERNAME);
+        
+        PDF pdf = pdfBuilder.buildPDF(PDF_TEST_FILE, locale, CUSTOMER_ID);
+        EmailWrapper email = new EmailWrapper(to, subject, templatename, templateData);
+        emailService.sendEmailWithAttachments(email, pdf, locale);
+    }
+    
+    @Test
+    public void testSendEmailSpanishWithAttachments(){
+        Locale locale = new Locale("es");
+        TemplateData templateData = new TemplateData(messageSource, locale);
+        templateData.add("username", USERNAME);
+        
+        List<String> attachments = Lists.newArrayList();
+        attachments.add(PDF_TEST_FILE);
+        attachments.add(PDF_TEST_FILE);
+        PDF pdf = pdfBuilder.buildPDF(attachments, locale, "customer_id");
+        EmailWrapper email = new EmailWrapper(to, subject, templatename, templateData);
+        emailService.sendEmailWithAttachments(email, pdf, locale);
+    }
+    
 }

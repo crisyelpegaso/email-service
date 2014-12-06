@@ -26,16 +26,13 @@ public class SimplePDF implements PDF {
      * @see com.store.pdf.PDF#addInto(org.springframework.mail.javamail.MimeMessageHelper)
      */
     public void addInto(MimeMessageHelper messageHelper) throws MessagingException {
+        
         messageHelper.addAttachment(customerId + "_" + LocalDate.now() + FILE_EXTENSION_PDF,
                 new ByteArrayResource(attachment));
     }
 
-    private String getFilename() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(customerId);
-        builder.append(FILE_EXTENSION_PDF);
-        return builder.toString();
+    public byte[] getAttachment(){
+        return this.attachment;
     }
-
 
 }
