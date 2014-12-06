@@ -26,14 +26,43 @@ Maven Dependency
 ********************
 How to create an email?
 ********************
+1) Create a .vm file with the email body content
 
-1) Inject EmailService
+```
+## This will include #msg macro to support i18n
+#parse("header.vm")
+
+  <html>
+    <head>
+      <title>Email Service Test</title>
+    </head>
+
+    <body>
+	    	<div style="background-color: #FFCC66; padding : 5px;" align="center">
+	      		<h1>#msg("mail.body.welcome")</h1>
+	      	</div>
+		
+		<div align="left" style="background-color:#FFFFCC; padding-left: 20px;" >	    
+	       <h2>#msg("mail.body.welcomeUser") ${username},</h2>
+	       
+	       <div style="padding-left: 30px;">
+	       		<h3>#msg("mail.body.description")</h3>
+	       	    <h3>#msg("mail.body.thankyou.1")</h3>
+	       	    <h3>#msg("mail.body.thankyou.2")</h3>
+	       </div>
+	       <h2>#msg("mail.body.thankyou.3")</h2>
+	    </div>
+    </body>
+  </HTML>
+```
+
+2) Inject EmailService
 
 ```
 @Autowired
 EmailService emailService;
 ```
-2) Create an EmailWrapper object
+3) Create an EmailWrapper object
 
 ```
 // Choose the language you'd like to create the e-mail
