@@ -5,6 +5,7 @@ tmp/
 .project
 .classpath
 target/
+README.md~
 
 # PDT-specific
 .buildpath
