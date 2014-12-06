@@ -1,0 +1,16 @@
+### Eclipse template
+.metadata
+tmp/
+.settings/
+.project
+.classpath
+
+# PDT-specific
+.buildpath
+
+# sbteclipse plugin
+.target
+
+### Java template
+*.class
+
