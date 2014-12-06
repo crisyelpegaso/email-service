@@ -4,6 +4,7 @@ tmp/
 .settings/
 .project
 .classpath
+target/
 
 # PDT-specific
 .buildpath
