@@ -14,11 +14,13 @@ An application would only need to add this jar dependency into its pom, and use 
 
 Maven Dependency
 
+```
 <dependency>
   <groupId>com.store.emailservice</groupId>
   <artifactId>store-email-service</artifactId>
   <version>1.0</version>
 </dependency>
+```
 
 ********************
 How to create an email?
@@ -26,11 +28,13 @@ How to create an email?
 
 1) Inject EmailService
 
+```
 @Autowired
 EmailService emailService;
-
+```
 2) Create an EmailWrapper object
 
+```
 // Choose the language you'd like to create the e-mail
 Locale locale = new Locale("en");
 
@@ -43,6 +47,7 @@ templateData.add("urlInfo", URL_REPO);
 EmailWrapper email = new EmailWrapper(to, subject, "test.vm", templateData);
 //Inject the EmailService and send it
 emailService.sendSimpleEmail(email, locale);
+```
 
 ********************
  MISSING FEATURES 
