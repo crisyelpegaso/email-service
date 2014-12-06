@@ -1,9 +1,0 @@
-#macro( msg $key $param)
-
-####$param######
-	#if($param)
-		$messages.getMessage($key, $param, $locale)
-	#else
-		$messages.getMessage($key, null, $locale)
-	#end
-#end
