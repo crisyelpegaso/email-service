@@ -12,7 +12,7 @@ The e-mail body is based in an Apache Velocity File (.vm). All the text used in 
 The configuration for the email service is located in the application.properties file.
 An application would only need to add this jar dependency into its pom, and use the objects it provides to create an e-mail and send it.
 
-Maven Dependency
+> Maven Dependency
 
 <dependency>
   <groupId>com.store.emailservice</groupId>
