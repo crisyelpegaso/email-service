@@ -4,7 +4,7 @@
 
 	<groupId>com.store.emailservice</groupId>
 	<artifactId>store-email-service</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>Store Email Service</name>
 
 	<packaging>jar</packaging>
